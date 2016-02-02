@@ -77,7 +77,7 @@ public class ServerRemote extends UnicastRemoteObject implements ServerRemoteItf
     }
 
     @Override
-    public void sendAudioClip(String user, ClientRemoteItfz cli, byte[] bytes) {
+    public void sendAudioClip(String user, ClientRemoteItfz cli, byte[] bytes) throws RemoteException {
         cli.getAudioClip(user, bytes);
     }
 }
