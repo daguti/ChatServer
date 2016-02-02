@@ -75,4 +75,9 @@ public class ServerRemote extends UnicastRemoteObject implements ServerRemoteItf
     public void getProfileImage(String user, ClientRemoteItfz cli) throws RemoteException {
         dao.getProfileImage(user, cli);
     }
+
+    @Override
+    public void sendAudioClip(String user, ClientRemoteItfz cli, byte[] bytes) {
+        cli.getAudioClip(user, bytes);
+    }
 }

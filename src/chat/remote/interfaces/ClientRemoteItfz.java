@@ -23,4 +23,5 @@ public interface ClientRemoteItfz extends Remote {
     public void receiveFile(FileInputStream file, String userFrom) throws RemoteException;
     public void receiveFile(String fileName, byte[] bytes, String userFrom) throws RemoteException;
     public void getProfileImage(String user, byte[] bytes) throws RemoteException;
+    public void getAudioClip(String userFrom, byte[] bytes) throws RemoteException;
 }
