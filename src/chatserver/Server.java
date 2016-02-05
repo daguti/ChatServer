@@ -21,12 +21,9 @@ import java.util.logging.Logger;
  *
  * @author ESa10969
  */
-public class Main {
+public class Server {
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String[] args) {    
+  public static void StartServer() {    
     try {
       VerifyTable.verifyTable(PersistanceDAO.getConnection());
       ServerRemoteItfz svrInt = new ServerRemote();
@@ -39,11 +36,11 @@ public class Main {
       Naming.rebind("rmi://localhost:1099/ChatServer", svrInt);
       System.out.println("[System] Chat Server is ready.");
     } catch (AccessException ex) {
-          Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
       } catch (RemoteException ex) {
-          Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
       } catch (MalformedURLException ex) {
-          Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
       }
   }
 }
