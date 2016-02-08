@@ -14,6 +14,7 @@ import javax.management.Attribute;
 import javax.management.AttributeList;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
+import javax.swing.JLabel;
 
 /**
  *
@@ -24,10 +25,15 @@ public class CPUsageThread implements Runnable {
     private Thread th;
     private DialPlotChart cpuChart;
     private DialPlotChart ramChart;
+    private JLabel usedMem;
+    private JLabel availableMem;
             
-    public CPUsageThread(DialPlotChart cpuChart, DialPlotChart ramChart) {
-        this.cpuChart = cpuChart;
-        this.ramChart = ramChart;
+    public CPUsageThread(DialPlotChart cpuChart, DialPlotChart ramChart, JLabel usedMem,
+                         JLabel availableMem) {
+        this.cpuChart     = cpuChart;
+        this.ramChart     = ramChart;
+        this.usedMem      = usedMem;
+        this.availableMem = availableMem;
     }
     
     public void start() {
@@ -50,7 +56,9 @@ public class CPUsageThread implements Runnable {
                 double total = new Long(Runtime.getRuntime().maxMemory() / 1000000).doubleValue();
                 used = used - free;
                 free = total - used;
-                System.out.println((used/total) * 100);
+                
+                usedMem.setText(Double.toString(used));
+                availableMem.setText(Double.toString(total));
                 ramChart.setChartValue((int) ((used/total) * 100));
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {

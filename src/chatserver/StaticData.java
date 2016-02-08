@@ -6,6 +6,11 @@
 
 package chatserver;
 
+import chat.remote.interfaces.ClientRemoteItfz;
+import chat.remote.interfaces.ServerRemoteItfz;
+import chatserver.GUI.MainScreen;
+import java.util.HashMap;
+
 
 /**
  *
@@ -13,4 +18,7 @@ package chatserver;
  */
 public class StaticData {
   public static final String tableName = "CHAT_USERS";
+  public static MainScreen mainScr;
+  public static ServerRemoteItfz srvInt;
+  public static HashMap<String, ClientRemoteItfz> userConMap;
 }

@@ -8,6 +8,7 @@ package chatserver.remote;
 
 import chat.remote.interfaces.ClientRemoteItfz;
 import chat.remote.interfaces.ServerRemoteItfz;
+import chatserver.StaticData;
 import chatserver.persistance.DAO.PersistanceDAO;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -24,7 +25,9 @@ public class ServerRemote extends UnicastRemoteObject implements ServerRemoteItf
     HashMap<String, String> usrStates            = new HashMap<>();
     PersistanceDAO dao                           = new PersistanceDAO();
 
-    public ServerRemote() throws RemoteException {}
+    public ServerRemote() throws RemoteException {
+        StaticData.userConMap = userConMap;
+    }
     
     @Override
     public boolean loginUser(String user, String pass, ClientRemoteItfz cli) throws RemoteException {
@@ -33,6 +36,7 @@ public class ServerRemote extends UnicastRemoteObject implements ServerRemoteItf
         if(dao.loginUser(user, pass)) {
             userConMap.put(user,cli);
             for(ClientRemoteItfz client : userConMap.values()) client.updateConnectedUsers(userConMap);
+            StaticData.mainScr.updateConnectionsTable(userConMap);
             return true;
         } else {
             return false;
@@ -43,6 +47,7 @@ public class ServerRemote extends UnicastRemoteObject implements ServerRemoteItf
     public void logoutUser(String userName) throws RemoteException {
         userConMap.remove(userName);
         for(ClientRemoteItfz client : userConMap.values()) client.updateConnectedUsers(userConMap);
+        StaticData.mainScr.updateConnectionsTable(userConMap);
     }
 
     @Override
